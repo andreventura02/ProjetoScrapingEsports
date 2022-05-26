@@ -4,7 +4,6 @@ from scrapy.exceptions import DropItem
 from datetime import datetime
 
 
-
 class EsportsPipeline:
         
     collection_name = 'esports'

@@ -1,5 +1,3 @@
-import imp
-from pendulum import today
 import scrapy
 import locale
 from ..items import EsportsItem

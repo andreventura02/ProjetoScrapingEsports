@@ -1,5 +1,4 @@
 import scrapy
-from esports import settings
 from ..items import EsportsItem
 from datetime import datetime, date
 
