@@ -10,7 +10,7 @@ Aqui estão as tecnologias usadas neste projeto.
 
 
 ## Desenvolvimento
-1. Definição da área no qual seriam extraído os dados.
+1. Definição da área no qual serão extraído os dados.
     - Games:
         - League Of Legends
         - Counter-Strike: Global Offensive
@@ -31,7 +31,7 @@ Aqui estão as tecnologias usadas neste projeto.
 
 4. Desenvolvimento e organização do código.
     
-    O programa foi desenvolvido de forma modular, afim de facilitar na detecção de erros, manutenção de código e retuilização de funções.
+    O programa foi desenvolvido de forma modular, afim de facilitar na detecção de erros, manutenção de código e reutilização de funções.
 
     ```bash
     │   mongo_script.txt #Comandos para criação de Database e Collection para o MongoDB
