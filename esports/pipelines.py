@@ -26,6 +26,7 @@ class EsportsPipeline:
             mongo_db=crawler.settings.get('MONGO_DATABASE', 'items'),
             stats = crawler.stats
         )
+        
     #Cria uma conexão quando iniciamos uma spider.   
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
@@ -37,6 +38,7 @@ class EsportsPipeline:
         self.logger.addHandler(handler)
         self.logger.info(self.stats.get_stats())
         self.client.close()
+        
     #Processa cada item, transformando e inserindo. Caso o item já esteja em nosso banco de Dados ele é Dropado   
     def process_item(self, item, spider):
         if spider.name in ["techtudoesports"]:

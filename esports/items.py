@@ -7,6 +7,9 @@ import scrapy
 
 
 class EsportsItem(scrapy.Item):
+    """
+        Criação de classe para padronização e manipulação dos dados vindo dos spiders.
+    """
     site = scrapy.Field()
     url = scrapy.Field()
     title = scrapy.Field()
