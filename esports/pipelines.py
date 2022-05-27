@@ -13,22 +13,21 @@ class EsportsPipeline:
         
     collection_name = 'esports'
 
-    def __init__(self, mongo_uri, mongo_db,stats):
+    def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
         self.logger = logging.getLogger()
-        self.stats = stats
         
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
             mongo_db=crawler.settings.get('MONGO_DATABASE', 'items'),
-            stats = crawler.stats
         )
         
     #Cria uma conexão quando iniciamos uma spider.   
     def open_spider(self, spider):
+        self.tempo_start = datetime.now()
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
         
@@ -36,7 +35,7 @@ class EsportsPipeline:
     def close_spider(self, spider):
         handler = logging.FileHandler(f'logs/{date.today()}.log')
         self.logger.addHandler(handler)
-        self.logger.info(self.stats.get_stats())
+        self.logger.info(f"SPIDER: {spider.name} \n tempo de execução: {datetime.now() - self.tempo_start}")
         self.client.close()
         
     #Processa cada item, transformando e inserindo. Caso o item já esteja em nosso banco de Dados ele é Dropado   
@@ -72,6 +71,11 @@ class EsportsPipeline:
             locale.setlocale(locale.LC_ALL, "Portuguese_Brazil.1252")
             item['date'] = item['date'].replace('de ','')
             item['date'] = datetime.strptime(item['date'], '%d %B %Y')
+            
+            if item['tags'] == []:
+                item['tags'] = None
+            else:
+                pass
             
             #Inserir o item no MongoDb
             try:
