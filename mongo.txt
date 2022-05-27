@@ -1,7 +1,0 @@
-
-use noticias
-
-db.createCollection('esports');
-
-db.esports.createIndex( {url: 1, site: 1}, {unique:true});
-

@@ -1,31 +1,43 @@
 import pymongo
 import locale
+import logging
 from scrapy.exceptions import DropItem
-from datetime import datetime
+from datetime import datetime, date
 
 
 class EsportsPipeline:
+    """
+        Classe criada como pipeline para nosso scraping, cada item extraído pelos spiders
+        passa pelo método process_item() onde ele é transformado e inserido em um Database.
+    """
         
     collection_name = 'esports'
 
-    def __init__(self, mongo_uri, mongo_db):
+    def __init__(self, mongo_uri, mongo_db,stats):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
-    
+        self.logger = logging.getLogger()
+        self.stats = stats
+        
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
             mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'items')
+            mongo_db=crawler.settings.get('MONGO_DATABASE', 'items'),
+            stats = crawler.stats
         )
-        
+    #Cria uma conexão quando iniciamos uma spider.   
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
-
-    def close_spider(self, spider):
-        self.client.close()
         
+    #Cria o log ao final da execução do spider e fecha a conexão com o banco.
+    def close_spider(self, spider):
+        handler = logging.FileHandler(f'logs/{date.today()}.log')
+        self.logger.addHandler(handler)
+        self.logger.info(self.stats.get_stats())
+        self.client.close()
+    #Processa cada item, transformando e inserindo. Caso o item já esteja em nosso banco de Dados ele é Dropado   
     def process_item(self, item, spider):
         if spider.name in ["techtudoesports"]:
             #Transformação e limpeza dos dados 'date','tags' e 'author'

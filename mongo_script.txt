@@ -1,0 +1,10 @@
+Criar nossa nova Database(Só é criada após a criação de uma collection):
+    use noticias;
+
+Criação da collection onde será armazenado nossos dados:
+    db.createCollection('esports');
+
+Criação de index único composto, para evitar que nossos dados se repitam:
+    db.esports.createIndex( {url: 1, site: 1}, {unique:true});
+
+
