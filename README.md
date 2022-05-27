@@ -143,3 +143,12 @@ $ sudo apt install python3-scrapy
 ```
 $ python run.py
 ```
+
+## Análises Possíveis
+
+Em nossos dados, podemos buscar por padrões, como:
+
+- Processamento de Linguagem Natural nos títulos
+- Analisar quais as tags mais utilizadas em ambos os sites
+- Quais horários as noticias são postadas
+- Quais os dias da semana em que mais são postados as noticias
