@@ -117,7 +117,7 @@ Aqui estão as tecnologias usadas neste projeto.
 
 - Clone o repositório
 ```
-$ git clone https://github.com/andreventura02/Projeto_Scraping.git
+$ git clone https://github.com/andreventura02/ProjetoScrapingEsports.git
 ```
 
 - Abra o terminal e navegue até a pasta clonada
